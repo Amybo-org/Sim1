@@ -4,14 +4,14 @@ import numpy as np
 import csv
 
 class Strain:
-  def __init__(self, name, count, OD, max_growth_rate, H2_req, CO2_req, nutrient_req):
-    self.name = name
-    self.count = count
-    self.OD = OD
-    self.max_growth_rate = max_growth_rate
-    self.H2_req = H2_req
-    self.CO2_req = CO2_req
-    self.nutrient_req = nutrient_req
+    def __init__(self, name, cell_OD, max_growth_rate, H2_req, CO2_req, nutrient_req):
+        self.name = name
+        self.cell_OD = float(cell_OD)
+        self.max_growth_rate = max_growth_rate
+        self.H2_req = H2_req
+        self.CO2_req = CO2_req
+        self.nutrient_req = nutrient_req
+        self.count = 0  # Initialize count to 0
 
   def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
     # Calculate the growth rate based on the concentrations of H2, CO2, and nutrients
@@ -42,13 +42,15 @@ def load_strains_from_file(file_path):
         reader = csv.reader(file)
         next(reader)  # Skip the header row
         for row in reader:
-            name, OD, max_growth_rate, H2_req, CO2_req, nutrient_req = row
-            strain = Strain(name, float(OD), float(max_growth_rate), float(H2_req), float(CO2_req), float(nutrient_req))
+            name, cell_OD, max_growth_rate, H2_req, CO2_req, nutrient_req = row
+            strain = Strain(name, float(cell_OD), float(max_growth_rate), float(H2_req), float(CO2_req), float(nutrient_req))
             strains.append(strain)
     return strains
 
 def simulate_fermentation(strains, initial_H2_conc, initial_CO2_conc, initial_nutrient_conc, time_period):
   # Initialize the concentrations of H2, CO2, and nutrients
+  for strain in strains:
+      strain.count = initial_count
   H2_conc = initial_H2_conc
   CO2_conc = initial_CO2_conc
   nutrient_conc = initial_nutrient_conc
