@@ -7,10 +7,10 @@ class Strain:
     def __init__(self, name, cell_OD, max_growth_rate, H2_req, CO2_req, nutrient_req):
         self.name = name
         self.cell_OD = float(cell_OD)
-        self.max_growth_rate = max_growth_rate
-        self.H2_req = H2_req
-        self.CO2_req = CO2_req
-        self.nutrient_req = nutrient_req
+        self.max_growth_rate = float(max_growth_rate)
+        self.H2_req = float(H2_req)
+        self.CO2_req = float(CO2_req)
+        self.nutrient_req = float(nutrient_req)
         self.count = 0  # Initialize count to 0
         self.OD = self.count * self.cell_OD  # Initialize OD
 
