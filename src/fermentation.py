@@ -13,7 +13,7 @@ class Strain:
         self.nutrient_req = nutrient_req
         self.count = 0  # Initialize count to 0
 
-  def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
+def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
     # Calculate the growth rate based on the concentrations of H2, CO2, and nutrients
     # Using Monod kinetics, assume growth rate is limited by the substrate with the lowest concentration
     min_conc = min(H2_conc / self.H2_req, CO2_conc / self.CO2_req, nutrient_conc / self.nutrient_req)
