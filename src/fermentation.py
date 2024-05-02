@@ -51,7 +51,7 @@ def load_strains_from_file(file_path):
             strains.append(strain)
     return strains
 
-def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=100):
+def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=100, time_periods=100):
   # Set the initial count for each strain
   for strain in strains:
       strain.count = initial_count
@@ -63,7 +63,7 @@ def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_C
   total_OD = []
 
   # For each time period:
-  for t in range(time_period):
+  for t in range(time_periods):
     # Initialize the changes in the concentrations of H2, CO2, and NH3
     delta_H2 = delta_CO2 = delta_NH3 = 0
 
@@ -73,7 +73,7 @@ def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_C
     # For each strain:
     for strain in strains:
       # Call the strain's calculate_changes method
-      dH2, dCO2, dNH3 = strain.calculate_changes(H2_conc, CO2_conc, NH3_conc, 1)
+      dH2, dCO2, dNH3 = strain.calculate_changes(H2_conc, CO2_conc, NH3_conc, time_period)
 
       # Sum the changes to get the overall culture values
       delta_H2 += dH2
@@ -100,5 +100,5 @@ strains = load_strains_from_file('data/strains_data.csv')
 print('Loaded {} strains'.format(len(strains)))
 
 print('Simulating fermentation...')
-total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10)
+total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10, time_periods=5)
 print('Simulation complete')
