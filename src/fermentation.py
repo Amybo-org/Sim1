@@ -5,22 +5,22 @@ import csv
 
 class Strain:
     def __init__(self, name, cell_OD, max_growth_rate, H2_req, CO2_req, NH3_req):
-        self.name = name
-        self.cell_OD = float(cell_OD)
-        self.max_growth_rate = float(max_growth_rate)
-        self.H2_req = float(H2_req)
-        self.CO2_req = float(CO2_req)
-        self.NH3_req = float(NH3_req)
+        self.name = name # Strain name
+        self.cell_OD = float(cell_OD) # Each cell's contribution to the optical density
+        self.max_growth_rate = float(max_growth_rate) 
+        self.H2_req = float(H2_req) # H2 required to form  a new cell
+        self.CO2_req = float(CO2_req) # CO2 required to form a new cell
+        self.NH3_req = float(NH3_req) # NH3 required to form a new cell
         self.count = 0  # Initialize count to 0
-        self.OD = self.count * self.cell_OD  # Initialize OD
+        self.OD = self.count * self.cell_OD  # Initialize strain's total contribution to total OD
 
     def calculate_changes(self, H2_conc, CO2_conc, NH3_conc, time_period):
         # Calculate the growth rate based on the concentrations of H2, CO2, and NH3
-        # Using Monod kinetics, assume growth rate is limited by the substrate with the lowest concentration
-        min_conc = min(H2_conc / self.H2_req, CO2_conc / self.CO2_req, NH3_conc / self.NH3_req)
+        # Using Monod kinetics, assume growth rate is limited by the substrate with the lowest concentration per unit requirement
+        substrate_limited_growth_rate = min(H2_conc / self.H2_req, CO2_conc / self.CO2_req, NH3_conc / self.NH3_req)
 
-        # The actual growth rate is the minimum of the maximum growth rate and the Monod growth rate
-        growth_rate = min(self.max_growth_rate, min_conc)
+        # The actual growth rate is the minimum of the maximum growth rate and the substrate-limited growth rate
+        growth_rate = min(self.max_growth_rate, substrate_limited_growth_rate)
 
         # Calculate the change in cell count
         delta_count = growth_rate * self.count * time_period
