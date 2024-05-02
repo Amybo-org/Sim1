@@ -36,17 +36,14 @@ class Strain:
     return delta_H2, delta_CO2, delta_nutrient
 
 def load_strains_from_file(file_path):
-  # Load the strain data from the file
     strains = []
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
         next(reader)  # Skip the header row
-        # Create a Strain instance for each set of data
         for row in reader:
             name, OD, max_growth_rate, H2_req, CO2_req, nutrient_req = row
-            strain = Strain(float(OD), float(max_growth_rate), float(H2_req), float(CO2_req), float(nutrient_req))
+            strain = Strain(name, float(OD), float(max_growth_rate), float(H2_req), float(CO2_req), float(nutrient_req))
             strains.append(strain)
-    # Return a list of Strain instances
     return strains
 
 def simulate_fermentation(strains, initial_H2_conc, initial_CO2_conc, initial_nutrient_conc, time_period):
