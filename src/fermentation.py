@@ -4,14 +4,19 @@ import numpy as np
 import csv
 
 class Strain:
-    def __init__(self, name, cell_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity):
+    def __init__(self, name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity):
         self.name = name  # Strain name
-        self.cell_OD = float(cell_OD)  # Each cell's contribution to the optical density
+        self.biomass_OD = float(biomass_OD)  # Each unit biomass' contribution to the optical density
         self.max_growth_rate = float(max_growth_rate) 
         self.H2_half_velocity = float(H2_half_velocity)  # H2 half-velocity constant
         self.CO2_half_velocity = float(CO2_half_velocity)  # CO2 half-velocity constant
         self.NH3_half_velocity = float(NH3_half_velocity)  # NH3 half-velocity constant
         self.biomass = 0  # Initialize biomass to 0
+        
+    @property
+    # Define the strain's optical density contribution
+    def OD(self):
+        return self.biomass_OD * self.biomass
 
     def calculate_growth_rate(self, H2_conc, CO2_conc, NH3_conc):
         # Calculate the growth rate using the Monod equation
@@ -43,8 +48,8 @@ def load_strains_from_file(file_path):
     reader = csv.reader(file)
     next(reader)  # Skip the header row
     for row in reader:
-      name, cell_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity = row
-      strain = Strain(name, float(cell_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity))
+      name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity = row
+      strain = Strain(name, float(biomass_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity))
       strains.append(strain)
   return strains
 
