@@ -1,4 +1,4 @@
-name,cell_OD,max_growth_rate,H2_req,CO2_req,NH3_req
+name,cell_OD,max_growth_rate,H2_half_velocity,CO2_half_velocity,NH3_half_velocity
 strain1,0.1,0.2,0.3,0.4,0.5
 strain2,0.2,0.3,0.4,0.5,0.6
 strain3,0.3,0.4,0.5,0.6,0.7
