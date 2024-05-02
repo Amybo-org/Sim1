@@ -27,15 +27,15 @@ class Strain:
 
         # Calculate the changes in the concentrations of H2, CO2, and nutrients
         # Assume that the strain consumes these substrates in proportion to its growth
-        delta_H2 = -delta_count * self.H2_req
-        delta_CO2 = -delta_count * self.CO2_req
-        delta_nutrient = -delta_count * self.nutrient_req
+        delta_H2 = max(-H2_conc, -delta_count * self.H2_req)
+        delta_CO2 = max(-CO2_conc, -delta_count * self.CO2_req)
+        delta_nutrient = max(-nutrient_conc, -delta_count * self.nutrient_req)
 
         # Update the cell count
-        self.count += delta_count
+        self.count += min(delta_H2 / self.H2_req, delta_CO2 / self.CO2_req, delta_nutrient / self.nutrient_req)
 
         # Update the optical density
-        self.OD = self.count * self.cell_OD
+        self.OD = max(0, self.count * self.cell_OD)
 
         # Return the changes in the concentrations of H2, CO2, and nutrients
         return delta_H2, delta_CO2, delta_nutrient
