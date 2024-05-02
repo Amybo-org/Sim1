@@ -4,7 +4,7 @@
 import csv
 
 class Strain:
-    def __init__(self, name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity):
+    def __init__(self, name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3):
         self.name = name  # Strain name
         self.biomass_OD = float(biomass_OD)  # Each unit biomass' contribution to the optical density
         self.max_growth_rate = float(max_growth_rate) 
@@ -12,6 +12,9 @@ class Strain:
         self.CO2_half_velocity = float(CO2_half_velocity)
         self.NH3_half_velocity = float(NH3_half_velocity)
         self.biomass = 0  # Initialize biomass to 0
+        self.Y_H2 = float(Y_H2)  # Yield coefficient for H2
+        self.Y_CO2 = float(Y_CO2)  # Yield coefficient for CO2
+        self.Y_NH3 = float(Y_NH3)  # Yield coefficient for NH3
         
     @property
     # Define the strain's optical density contribution
@@ -27,9 +30,9 @@ class Strain:
         growth_rate = self.calculate_growth_rate(H2_conc, CO2_conc, NH3_conc)
 
         # Calculate the changes in the concentrations of H2, CO2, and NH3
-        delta_H2 = -growth_rate * self.biomass / H2_conc
-        delta_CO2 = -growth_rate * self.biomass / CO2_conc
-        delta_NH3 = -growth_rate * self.biomass / NH3_conc
+        delta_H2 = -growth_rate * self.biomass / self.Y_H2
+        delta_CO2 = -growth_rate * self.biomass / self.Y_CO2
+        delta_NH3 = -growth_rate * self.biomass / self.Y_NH3
 
         # Update the biomass
         self.biomass += growth_rate * time_period
@@ -43,8 +46,8 @@ def load_strains_from_file(file_path):
     reader = csv.reader(file)
     next(reader)  # Skip the header row
     for row in reader:
-      name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity = row
-      strain = Strain(name, float(biomass_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity))
+      name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3 = row
+      strain = Strain(name, float(biomass_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity), float(Y_H2), float(Y_CO2), float(Y_NH3))
       strains.append(strain)
   return strains
 
