@@ -100,5 +100,5 @@ strains = load_strains_from_file('data/strains_data.csv')
 print('Loaded {} strains'.format(len(strains)))
 
 print('Simulating fermentation...')
-total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_nutrient_conc=1.0, time_period=100)
+total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_nutrient_conc=1.0, time_period=10)
 print('Simulation complete')
