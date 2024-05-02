@@ -1,6 +1,6 @@
 # fermentation.py
+# See https://en.wikipedia.org/wiki/Monod_equation for an explanation of the Monod equation
 
-import numpy as np
 import csv
 
 class Strain:
@@ -20,12 +20,7 @@ class Strain:
 
     def calculate_growth_rate(self, H2_conc, CO2_conc, NH3_conc):
         # Calculate the growth rate using the Monod equation
-        H2_growth_rate = self.max_growth_rate * H2_conc / (self.H2_half_velocity + H2_conc)
-        CO2_growth_rate = self.max_growth_rate * CO2_conc / (self.CO2_half_velocity + CO2_conc)
-        NH3_growth_rate = self.max_growth_rate * NH3_conc / (self.NH3_half_velocity + NH3_conc)
-
-        # The overall growth rate is the minimum of the growth rates for each substrate
-        return min(H2_growth_rate, CO2_growth_rate, NH3_growth_rate)
+        return self.max_growth_rate * H2_conc / (self.H2_half_velocity + H2_conc) * CO2_conc / (self.CO2_half_velocity + CO2_conc) * NH3_conc / (self.NH3_half_velocity + NH3_conc)
 
     def calculate_changes(self, H2_conc, CO2_conc, NH3_conc, time_period):
         # Calculate the growth rate
