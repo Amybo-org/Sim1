@@ -91,9 +91,14 @@ def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_C
     # Add the total optical density for this time period to the list
     total_OD.append(OD)
 
-  # Return the total optical density over time
-  print('Total OD: ', total_OD)
-  return total_OD
+    # Write the total OD over time to a file
+    with open('total_OD.csv', 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Total_OD'])
+        for OD in total_OD:
+            writer.writerow([OD])
+
+    return total_OD
 
 def main():
   print('Loading strains...')
