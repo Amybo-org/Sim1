@@ -13,28 +13,28 @@ class Strain:
         self.nutrient_req = nutrient_req
         self.count = 0  # Initialize count to 0
 
-def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
-    # Calculate the growth rate based on the concentrations of H2, CO2, and nutrients
-    # Using Monod kinetics, assume growth rate is limited by the substrate with the lowest concentration
-    min_conc = min(H2_conc / self.H2_req, CO2_conc / self.CO2_req, nutrient_conc / self.nutrient_req)
+    def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
+        # Calculate the growth rate based on the concentrations of H2, CO2, and nutrients
+        # Using Monod kinetics, assume growth rate is limited by the substrate with the lowest concentration
+        min_conc = min(H2_conc / self.H2_req, CO2_conc / self.CO2_req, nutrient_conc / self.nutrient_req)
 
-    # The actual growth rate is the minimum of the maximum growth rate and the Monod growth rate
-    growth_rate = min(self.max_growth_rate, min_conc)
+        # The actual growth rate is the minimum of the maximum growth rate and the Monod growth rate
+        growth_rate = min(self.max_growth_rate, min_conc)
 
-    # Calculate the change in cell count
-    delta_count = growth_rate * self.count * time_period
+        # Calculate the change in cell count
+        delta_count = growth_rate * self.count * time_period
 
-    # Calculate the changes in the concentrations of H2, CO2, and nutrients
-    # Assume that the strain consumes these substrates in proportion to its growth
-    delta_H2 = -delta_count * self.H2_req
-    delta_CO2 = -delta_count * self.CO2_req
-    delta_nutrient = -delta_count * self.nutrient_req
+        # Calculate the changes in the concentrations of H2, CO2, and nutrients
+        # Assume that the strain consumes these substrates in proportion to its growth
+        delta_H2 = -delta_count * self.H2_req
+        delta_CO2 = -delta_count * self.CO2_req
+        delta_nutrient = -delta_count * self.nutrient_req
 
-    # Update the cell count
-    self.count += delta_count
+        # Update the cell count
+        self.count += delta_count
 
-    # Return the changes in the concentrations of H2, CO2, and nutrients
-    return delta_H2, delta_CO2, delta_nutrient
+        # Return the changes in the concentrations of H2, CO2, and nutrients
+        return delta_H2, delta_CO2, delta_nutrient
 
 def load_strains_from_file(file_path):
     strains = []
@@ -47,8 +47,8 @@ def load_strains_from_file(file_path):
             strains.append(strain)
     return strains
 
-def simulate_fermentation(strains, initial_H2_conc, initial_CO2_conc, initial_nutrient_conc, time_period):
-  # Initialize the concentrations of H2, CO2, and nutrients
+def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_nutrient_conc=1.0, time_period=100):
+  # Set the initial count for each strain
   for strain in strains:
       strain.count = initial_count
   H2_conc = initial_H2_conc
