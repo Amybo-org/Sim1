@@ -12,6 +12,7 @@ class Strain:
         self.CO2_req = CO2_req
         self.nutrient_req = nutrient_req
         self.count = 0  # Initialize count to 0
+        self.OD = self.count * self.cell_OD  # Initialize OD
 
     def calculate_changes(self, H2_conc, CO2_conc, nutrient_conc, time_period):
         # Calculate the growth rate based on the concentrations of H2, CO2, and nutrients
@@ -32,6 +33,9 @@ class Strain:
 
         # Update the cell count
         self.count += delta_count
+
+        # Update the optical density
+        self.OD = self.count * self.cell_OD
 
         # Return the changes in the concentrations of H2, CO2, and nutrients
         return delta_H2, delta_CO2, delta_nutrient
