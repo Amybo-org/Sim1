@@ -36,7 +36,6 @@ class Strain:
 
 def load_strains_from_file(file_path):
   # Load the strain data from the file
-  def load_strains_from_file(file_path):
     strains = []
     with open(file_path, 'r') as file:
         reader = csv.reader(file)
@@ -90,5 +89,10 @@ def simulate_fermentation(strains, initial_H2_conc, initial_CO2_conc, initial_nu
   # Return the total optical density over time
   return total_OD
 
-strains = load_strains_from_file('data/strains_data.csv')
+print('Loading strains...')
+strains = load_strains_from_file('strains_data.csv')
+print('Loaded {} strains'.format(len(strains)))
+
+print('Simulating fermentation...')
 total_OD = simulate_fermentation(strains, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_nutrient_conc=1.0, time_period=100)
+print('Simulation complete')
