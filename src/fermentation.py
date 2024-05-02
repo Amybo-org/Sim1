@@ -92,6 +92,7 @@ def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_C
     total_OD.append(OD)
 
   # Return the total optical density over time
+  print('Total OD: ', total_OD)
   return total_OD
 
 print('Loading strains...')
