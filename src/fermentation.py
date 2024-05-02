@@ -4,7 +4,8 @@ import numpy as np
 import csv
 
 class Strain:
-  def __init__(self, count, OD, max_growth_rate, H2_req, CO2_req, nutrient_req):
+  def __init__(self, name, count, OD, max_growth_rate, H2_req, CO2_req, nutrient_req):
+    self.name = name
     self.count = count
     self.OD = OD
     self.max_growth_rate = max_growth_rate
