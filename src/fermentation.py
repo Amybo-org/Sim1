@@ -8,9 +8,9 @@ class Strain:
         self.name = name  # Strain name
         self.biomass_OD = float(biomass_OD)  # Each unit biomass' contribution to the optical density
         self.max_growth_rate = float(max_growth_rate) 
-        self.H2_half_velocity = float(H2_half_velocity)  # H2 half-velocity constant
-        self.CO2_half_velocity = float(CO2_half_velocity)  # CO2 half-velocity constant
-        self.NH3_half_velocity = float(NH3_half_velocity)  # NH3 half-velocity constant
+        self.H2_half_velocity = float(H2_half_velocity)
+        self.CO2_half_velocity = float(CO2_half_velocity)
+        self.NH3_half_velocity = float(NH3_half_velocity)
         self.biomass = 0  # Initialize biomass to 0
         
     @property
