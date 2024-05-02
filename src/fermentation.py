@@ -95,10 +95,14 @@ def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_C
   print('Total OD: ', total_OD)
   return total_OD
 
-print('Loading strains...')
-strains = load_strains_from_file('data/strains_data.csv')
-print('Loaded {} strains'.format(len(strains)))
+def main():
+  print('Loading strains...')
+  strains = load_strains_from_file('data/strains_data.csv')
+  print('Loaded {} strains'.format(len(strains)))
 
-print('Simulating fermentation...')
-total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10, time_periods=5)
-print('Simulation complete')
+  print('Simulating fermentation...')
+  total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10, time_periods=5)
+  print('Simulation complete')
+
+if __name__ == '__main__':
+  main()
