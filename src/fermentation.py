@@ -38,6 +38,9 @@ class Strain:
 
         growth_rate += random_factor
 
+        # Ensure the growth rate is non-negative
+        growth_rate = max(0, growth_rate)
+
         # Calculate the changes in the concentrations of H2, CO2, and NH3
         delta_H2 = -growth_rate * time_period * self.biomass / self.Y_H2
         delta_CO2 = -growth_rate * time_period * self.biomass / self.Y_CO2
