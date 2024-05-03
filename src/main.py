@@ -3,8 +3,9 @@ import random
 from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
 from fermentation import Strain
-import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
+import matplotlib.pyplot as plt
+
 
 def main():
     # Read the strains from the CSV file
@@ -33,24 +34,33 @@ def main():
 
     # Plot the results
     print('Plotting results...')
-    fig, ax = plt.subplots()
-    for i, od in enumerate(good_ODs, start=1):
-        line, = ax.plot(od, label=str(i))
-        line.set_picker(5)  # Enable picking on the line with 5 pixel tolerance
+    def plot_data(good_ODs):
+        fig, ax = plt.subplots()
+        for i, od in enumerate(good_ODs, start=1):
+            line, = ax.plot(od, label=str(i))
+            line.set_picker(5)  # Enable picking on the line with 5 pixel tolerance
+        ax.set_title('Click on the plot you think is contaminated')  # Add a title to the plot
+        return fig, ax  # Ensure that a tuple is always returned
 
     # Ask the user to identify the contaminated fermentation
     contaminated_index += 1  # Adjust index to match 1-based numbering in labels
+
     def onpick(event):
         if isinstance(event.artist, Line2D):
             line = event.artist
             label = line.get_label()
+            color = line.get_color()
             if label.isdigit():
                 answer = int(label)
                 if answer == contaminated_index:
-                    print(f'Correct! Fermentation number {contaminated_index} is contaminated.')
+                    text = f'Correct! The plot with color {color} is contaminated.'
                 else:
-                    print(f'Incorrect. Fermentation number {contaminated_index} is contaminated.')
+                    text = f'Incorrect. The plot with color {color} is not contaminated.'
+                fig.texts = []  # Remove previous texts
+                fig.text(0.5, 0.01, text, ha='center')  # Add the new text
+                fig.canvas.draw()  # Redraw the figure
 
+    fig, ax = plot_data(good_ODs)
     fig.canvas.mpl_connect('pick_event', onpick)
 
     plt.show()
