@@ -3,6 +3,7 @@ import random
 from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
 from fermentation import Strain
+import matplotlib.pyplot as plt
 
 def main():
     # Read the strains from the CSV file
@@ -19,12 +20,11 @@ def main():
 
     # Run the fermentation simulation multiple times with just the good strains
     print('Running fermentation with good strains...')
-    initial_biomass = 0.1
-    good_ODs = [simulate_fermentation(good_strains, initial_biomass) for _ in range(5)]
+    good_ODs = [simulate_fermentation(good_strains, random.random()) for _ in range(5)]
 
     # Run the fermentation simulation once with all strains
     print('Running fermentation with all strains...')
-    all_OD = simulate_fermentation(all_strains, initial_biomass)
+    all_OD = simulate_fermentation(all_strains, random.random())
 
     # Randomly insert the results of the fermentation with all strains into the list of results
     contaminated_index = random.randint(0, 5)
@@ -32,15 +32,24 @@ def main():
 
     # Plot the results
     print('Plotting results...')
-    plot_total_OD(good_ODs, [str(i+1) for i in range(6)])
+    fig, ax = plt.subplots()
+    for i, od in enumerate(good_ODs, start=1):
+        ax.plot(od, label=str(i))
+    ax.legend()
 
     # Ask the user to identify the contaminated fermentation
-    print('Please identify the contaminated fermentation:')
-    answer = input('Enter the number of the contaminated fermentation: ')
-    if answer == str(contaminated_index + 1):
-        print(f'Correct! Fermentation number {contaminated_index + 1} is contaminated.')
-    else:
-        print(f'Incorrect. Fermentation number {contaminated_index + 1} is contaminated.')
+    contaminated_index += 1  # Adjust index to match 1-based numbering in labels
+    def onclick(event):
+        if event.inaxes is not None:
+            answer = int(event.inaxes.get_title())
+            if answer == contaminated_index:
+                print(f'Correct! Fermentation number {contaminated_index} is contaminated.')
+            else:
+                print(f'Incorrect. Fermentation number {contaminated_index} is contaminated.')
+
+    cid = fig.canvas.mpl_connect('button_press_event', onclick)
+
+    plt.show()
 
 if __name__ == '__main__':
     main()
