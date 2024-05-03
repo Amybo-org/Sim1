@@ -1,11 +1,12 @@
 import csv
 import random
+import pyperclip
+import time  # Import the time module
 from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
 from fermentation import Strain
 from matplotlib.lines import Line2D
 import matplotlib.pyplot as plt
-
 
 def main():
     # Read the strains from the CSV file
@@ -44,6 +45,7 @@ def main():
 
     # Ask the user to identify the contaminated fermentation
     contaminated_index += 1  # Adjust index to match 1-based numbering in labels
+    print(f'The contaminated fermentation is at index {contaminated_index}')  # AI finds the contaminated fermentation
 
     def onpick(event):
         if isinstance(event.artist, Line2D):
@@ -62,6 +64,13 @@ def main():
 
     fig, ax = plot_data(good_ODs)
     fig.canvas.mpl_connect('pick_event', onpick)
+
+    # Prepare the data and the instruction for the LLM
+    instruction = "This is the optical density data from several fermentations. One of these contains a pathogenic strain. Please analyze the data and identify which fermentation is likely to be contaminated: "
+    data_with_instruction = instruction + str(good_ODs)
+
+    # Copy the data and the instruction to the clipboard
+    pyperclip.copy(data_with_instruction)
 
     plt.show()
 
