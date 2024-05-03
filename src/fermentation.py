@@ -33,7 +33,7 @@ class Strain:
 
         # Add a normally distributed random factor to the growth rate
         mean = 0  # mean of the distribution
-        std_dev = 0.1  # standard deviation of the distribution
+        std_dev = 2  # standard deviation of the distribution
         random_factor = random.gauss(mean, std_dev)
 
         growth_rate += random_factor
