@@ -2,3 +2,4 @@ name,type,cell_OD,max_growth_rate,H2_half_velocity,CO2_half_velocity,NH3_half_ve
 strain1,good,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8
 strain2,good,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9
 strain3,pathogenic,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0
+strain4,good,0.1,0.2,0.4,0.5,0.6,0.7,0.8,0.9
