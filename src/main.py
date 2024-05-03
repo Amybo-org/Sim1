@@ -4,6 +4,7 @@ from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
 from fermentation import Strain
 import matplotlib.pyplot as plt
+from matplotlib.lines import Line2D
 
 def main():
     # Read the strains from the CSV file
@@ -34,20 +35,23 @@ def main():
     print('Plotting results...')
     fig, ax = plt.subplots()
     for i, od in enumerate(good_ODs, start=1):
-        ax.plot(od, label=str(i))
-    ax.legend()
+        line, = ax.plot(od, label=str(i))
+        line.set_picker(5)  # Enable picking on the line with 5 pixel tolerance
 
     # Ask the user to identify the contaminated fermentation
     contaminated_index += 1  # Adjust index to match 1-based numbering in labels
-    def onclick(event):
-        if event.inaxes is not None:
-            answer = int(event.inaxes.get_title())
-            if answer == contaminated_index:
-                print(f'Correct! Fermentation number {contaminated_index} is contaminated.')
-            else:
-                print(f'Incorrect. Fermentation number {contaminated_index} is contaminated.')
+    def onpick(event):
+        if isinstance(event.artist, Line2D):
+            line = event.artist
+            label = line.get_label()
+            if label.isdigit():
+                answer = int(label)
+                if answer == contaminated_index:
+                    print(f'Correct! Fermentation number {contaminated_index} is contaminated.')
+                else:
+                    print(f'Incorrect. Fermentation number {contaminated_index} is contaminated.')
 
-    cid = fig.canvas.mpl_connect('button_press_event', onclick)
+    fig.canvas.mpl_connect('pick_event', onpick)
 
     plt.show()
 
