@@ -1,20 +1,18 @@
 import csv
 import matplotlib.pyplot as plt
 
-def plot_total_OD(file_path):
-    # Read the total OD from the file
-    total_OD = []
-    with open(file_path, 'r') as file:
-        reader = csv.reader(file)
-        next(reader)  # Skip the header row
-        for row in reader:
-            total_OD.append(float(row[0]))
+def plot_total_OD(OD_values, labels):
+    # Plot each set of OD values in a different color
+    for OD, label in zip(OD_values, labels):
+        plt.plot(OD, label=label)
 
-    # Plot the total OD over time
-    plt.plot(total_OD)
+    # Add labels and a legend
     plt.xlabel('Time period')
     plt.ylabel('Total OD')
     plt.title('Total OD over time')
+    plt.legend()
+
+    # Show the plot
     plt.show()
 
 def main():
