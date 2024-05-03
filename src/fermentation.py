@@ -30,6 +30,13 @@ class Strain:
         # Calculate the growth rate
         growth_rate = self.calculate_growth_rate(H2_conc, CO2_conc, NH3_conc)
 
+        # Add a normally distributed random factor to the growth rate
+        mean = 0  # mean of the distribution
+        std_dev = 0.1  # standard deviation of the distribution
+        random_factor = random.gauss(mean, std_dev)
+
+        growth_rate += random_factor
+
         # Calculate the changes in the concentrations of H2, CO2, and NH3
         delta_H2 = -growth_rate * time_period * self.biomass / self.Y_H2
         delta_CO2 = -growth_rate * time_period * self.biomass / self.Y_CO2
