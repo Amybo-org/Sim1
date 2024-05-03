@@ -1,11 +1,20 @@
+import csv
 from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
-from strains import GoodStrain, PathogenicStrain
+from strains import Strain
 
 def main():
-    # Define the strains
-    good_strains = [GoodStrain() for _ in range(5)]
-    all_strains = good_strains + [PathogenicStrain()]
+    # Read the strains from the CSV file
+    strains = []
+    with open('strains.csv', 'r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip the header row
+        for row in reader:
+            strains.append(Strain(*row))
+
+    # Separate the strains into good strains and pathogenic strains
+    good_strains = [strain for strain in strains if strain.type == 'good']
+    all_strains = strains
 
     # Run the fermentation simulation with just the good strains
     print('Running fermentation with good strains...')
