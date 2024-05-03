@@ -52,10 +52,10 @@ def load_strains_from_file(file_path):
       strains.append(strain)
   return strains
 
-def simulate_fermentation(strains, initial_count, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=100, time_periods=100):
-  # Set the initial count for each strain
+def simulate_fermentation(strains, initial_biomass, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=100, time_periods=100):
+  # Set the initial biomass for each strain
   for strain in strains:
-      strain.count = initial_count
+      strain.biomass = initial_biomass
   H2_conc = initial_H2_conc
   CO2_conc = initial_CO2_conc
   NH3_conc = initial_NH3_conc
@@ -107,7 +107,7 @@ def main():
   print('Loaded {} strains'.format(len(strains)))
 
   print('Simulating fermentation...')
-  total_OD = simulate_fermentation(strains, initial_count=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10, time_periods=5)
+  total_OD = simulate_fermentation(strains, initial_biomass=1000, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=10, time_periods=5)
   print('Simulation complete')
 
 if __name__ == '__main__':
