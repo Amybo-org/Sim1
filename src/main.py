@@ -23,11 +23,11 @@ def main():
 
     # Run the fermentation simulation multiple times with just the good strains
     print('Running fermentation with good strains...')
-    good_ODs = [simulate_fermentation(good_strains, random.random()) for _ in range(5)]
+    good_ODs = [simulate_fermentation(good_strains, [random.random() for _ in range(len(good_strains))]) for _ in range(5)]
 
     # Run the fermentation simulation once with all strains
     print('Running fermentation with all strains...')
-    all_OD = simulate_fermentation(all_strains, random.random())
+    all_OD = simulate_fermentation(all_strains, [random.random() for _ in range(len(all_strains))])
 
     # Randomly insert the results of the fermentation with all strains into the list of results
     contaminated_index = random.randint(0, 5)
