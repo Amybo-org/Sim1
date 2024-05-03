@@ -41,6 +41,7 @@ def main():
             line, = ax.plot(od, label=str(i))
             line.set_picker(5)  # Enable picking on the line with 5 pixel tolerance
         ax.set_title('Click on the plot you think is contaminated')  # Add a title to the plot
+        plt.legend(title='Fermentation Number')  # Show the legend with a title
         return fig, ax  # Ensure that a tuple is always returned
 
     # Ask the user to identify the contaminated fermentation
