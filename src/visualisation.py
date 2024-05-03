@@ -16,9 +16,8 @@ def plot_total_OD(OD_values, labels):
     plt.show()
 
 def main():
-    print('Plotting total OD...')
-    plot_total_OD('data/total_OD.csv')
-    print('Plotting complete')
+    # Plot the total OD
+    print('Sorry, this test was broken.')
 
 if __name__ == '__main__':
     main()
