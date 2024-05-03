@@ -60,7 +60,7 @@ def load_strains_from_file(file_path):
       strains.append(strain)
   return strains
 
-def simulate_fermentation(strains, initial_biomass, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=100, time_periods=100):
+def simulate_fermentation(strains, initial_biomass, initial_H2_conc=1.0, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=1, time_periods=100):
   # Set the initial biomass for each strain
   for strain in strains:
       strain.biomass = initial_biomass
@@ -99,13 +99,6 @@ def simulate_fermentation(strains, initial_biomass, initial_H2_conc=1.0, initial
 
     # Add the total optical density for this time period to the list
     total_OD.append(OD)
-
-  # Write the total OD over time to a file
-  with open('data/total_OD.csv', 'w', newline='') as file:
-      writer = csv.writer(file)
-      writer.writerow(['Total_OD'])
-      for OD in total_OD:
-          writer.writerow([OD])
 
   return total_OD
 
