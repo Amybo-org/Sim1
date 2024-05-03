@@ -1,12 +1,12 @@
 import csv
 from fermentation import simulate_fermentation
 from visualisation import plot_total_OD
-from strains import Strain
+from fermentation import Strain
 
 def main():
     # Read the strains from the CSV file
     strains = []
-    with open('strains.csv', 'r') as file:
+    with open('data/strains_data.csv', 'r') as file:
         reader = csv.reader(file)
         next(reader)  # Skip the header row
         for row in reader:
