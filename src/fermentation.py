@@ -2,6 +2,7 @@
 # See https://en.wikipedia.org/wiki/Monod_equation for an explanation of the Monod equation
 
 import csv
+import random
 
 class Strain:
     def __init__(self, name, type, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3):
