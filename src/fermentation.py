@@ -63,13 +63,14 @@ def load_strains_from_file(file_path):
       strains.append(strain)
   return strains
 
-def simulate_fermentation(strains, initial_biomasses, initial_H2_conc=0.5, initial_CO2_conc=1.0, initial_NH3_conc=1.0, time_period=1, time_periods=100):
+def simulate_fermentation(strains, initial_biomasses, initial_H2_conc=0, initial_CO2_conc=0, initial_NH3_conc=0, time_period=1, time_periods=100):
   # Set the initial biomass for each strain
   for strain, initial_biomass in zip(strains, initial_biomasses):
       strain.biomass = initial_biomass
   H2_conc = initial_H2_conc
   CO2_conc = initial_CO2_conc
   NH3_conc = initial_NH3_conc
+  print(H2_conc, CO2_conc, NH3_conc)
 
   # Initialize a list to hold the total optical density over time
   total_OD = []
