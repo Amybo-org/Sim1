@@ -56,9 +56,9 @@ def main():
             if label.isdigit():
                 answer = int(label)
                 if answer == contaminated_index:
-                    text = f'Correct! The plot with color {color} is contaminated.'
+                    text = f'Correct! Plot {label} with color {color} is contaminated.'
                 else:
-                    text = f'Incorrect. The plot with color {color} is not contaminated.'
+                    text = f'Incorrect. Plot {label} with color {color} is not contaminated.'
                 fig.texts = []  # Remove previous texts
                 fig.text(0.5, 0.01, text, ha='center')  # Add the new text
                 fig.canvas.draw()  # Redraw the figure
