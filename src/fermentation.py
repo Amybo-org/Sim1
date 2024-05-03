@@ -4,8 +4,9 @@
 import csv
 
 class Strain:
-    def __init__(self, name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3):
+    def __init__(self, name, type, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3):
         self.name = name  # Strain name
+        self.type = type  # Strain type (good or pathogenic)
         self.biomass_OD = float(biomass_OD)  # Each unit biomass' contribution to the optical density
         self.max_growth_rate = float(max_growth_rate) 
         self.H2_half_velocity = float(H2_half_velocity)
@@ -46,8 +47,8 @@ def load_strains_from_file(file_path):
     reader = csv.reader(file)
     next(reader)  # Skip the header row
     for row in reader:
-      name, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3 = row
-      strain = Strain(name, float(biomass_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity), float(Y_H2), float(Y_CO2), float(Y_NH3))
+      name, type, biomass_OD, max_growth_rate, H2_half_velocity, CO2_half_velocity, NH3_half_velocity, Y_H2, Y_CO2, Y_NH3 = row
+      strain = Strain(name, type, float(biomass_OD), float(max_growth_rate), float(H2_half_velocity), float(CO2_half_velocity), float(NH3_half_velocity), float(Y_H2), float(Y_CO2), float(Y_NH3))
       strains.append(strain)
   return strains
 
